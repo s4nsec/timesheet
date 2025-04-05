@@ -18,7 +18,7 @@ class TimesheetCSV(object):
     if self._entries == None:
       if os.path.exists(self.filename):
         needs_sorting = False
-        with open(self.filename, 'rb') as fh:
+        with open(self.filename, 'r') as fh:
           reader = csv.reader(fh, delimiter=',')
           self._entries = list(reader)
 
@@ -66,7 +66,7 @@ class TimesheetCSV(object):
       if new_hash == item_hash:
         return False, "duplicate entry"
 
-    with open(self.filename, 'ab+') as csvfile:
+    with open(self.filename, 'a+') as csvfile:
       writer = csv.writer(csvfile, delimiter=',',
                           quotechar='"', quoting=csv.QUOTE_MINIMAL, lineterminator='\n')
       writer.writerow([util.date2string(start_date),
