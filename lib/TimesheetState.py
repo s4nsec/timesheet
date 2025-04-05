@@ -2,7 +2,7 @@
 
 import os
 from datetime import datetime
-import util
+from . import util
 
 class TimesheetState(object):
   def __init__(self, filename):

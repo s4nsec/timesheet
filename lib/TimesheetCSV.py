@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 from datetime import datetime
-import util
+from . import util
 import os
 import csv
 import operator
