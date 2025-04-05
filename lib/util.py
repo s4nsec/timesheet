@@ -4,6 +4,7 @@ from datetime import datetime
 from datetime import timedelta
 import time
 import subprocess
+import dateparser
 
 # Get a datetime object with the start of the current work week.  day
 # is a string specifying the name of the day.  time is the 24-hour
@@ -25,19 +26,7 @@ def get_day_start(day=datetime.today()):
 # Converts string to formatted date by calling out to the unix date
 # utility.  Returns None if conversion failed.
 def interpretdate(string):
-  popen = subprocess.Popen('date -d "%s" +%%Y/%%m/%%d\ %%H:%%M:%%S' % string,
-                           shell=True,
-                           stdout=subprocess.PIPE)
-  stdout_, stderr_ = popen.communicate()
-  if popen.returncode != 0:
-    try:
-      return __import__('dateutil.parser').parser.parse(string)
-    except ImportError:
-      return None
-    except NameError:
-      return None
-  else:
-    return string2date(stdout_.strip())
+    return dateparser.parse(string)
 
 def string2date(s):
   assert isinstance(s, str)
