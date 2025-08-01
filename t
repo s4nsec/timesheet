@@ -80,7 +80,7 @@ def analyze(
                     print(
                         " " * len(entry_day)
                         + " Total "
-                        + util.delta2string(day_dur, decimal=True, abbr=True)
+                        + util.delta2string(day_dur, decimal=False, abbr=True)
                     )
                     print("")
             display_day = entry_day
@@ -95,7 +95,7 @@ def analyze(
         if breakdown:
             print(
                 display_day,
-                util.delta2string(entry_dur, show_days=True, decimal=True, abbr=True)
+                util.delta2string(entry_dur, show_days=True, decimal=False, abbr=True)
                 + "\t"
                 + entry_message,
             )
@@ -104,7 +104,7 @@ def analyze(
             print(
                 " " * len(entry_day)
                 + " Total "
-                + util.delta2string(day_dur, decimal=True, abbr=True)
+                + util.delta2string(day_dur, decimal=False, abbr=True)
             )
             print("")
 
@@ -226,8 +226,12 @@ def main(argv):
         if argument != "":
             # backdate the timer
             starttime = util.interpretdate(argument)
-            if starttime == None:
+            if not starttime:
                 print("invalid date. try again.")
+                return
+            date_now = datetime.now()
+            if (date_now - starttime).total_seconds() < 0:
+                print("start time cannot be later than the current time. try again.")
                 return
         else:
             starttime = datetime.today()

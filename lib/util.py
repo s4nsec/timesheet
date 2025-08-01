@@ -54,9 +54,9 @@ def delta2string(delta, show_days=False, decimal=False, abbr=False):
     assert isinstance(delta, timedelta)
     days = delta.days
     seconds = delta.seconds
-    minutes = seconds // 60
+    minutes = seconds / 60
     seconds = seconds % 60
-    hours = minutes // 60
+    hours = minutes / 60
     minutes = minutes % 60
     if not show_days:
         hours += 24 * days
