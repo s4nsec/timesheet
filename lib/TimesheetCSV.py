@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 from datetime import datetime
 from . import util
@@ -37,7 +37,7 @@ class TimesheetCSV(object):
         if needs_sorting:
           # TODO verbose output
           self._entries = sorted(self._entries, key=operator.itemgetter(0))
-          with open(self.filename, 'wb+') as fh:
+          with open(self.filename, 'w', newline='') as fh:
             writer = csv.writer(fh, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
             for row in self._entries:
               writer.writerow(row)
@@ -66,9 +66,9 @@ class TimesheetCSV(object):
       if new_hash == item_hash:
         return False, "duplicate entry"
 
-    with open(self.filename, 'a+') as csvfile:
+    with open(self.filename, 'a', newline='') as csvfile:
       writer = csv.writer(csvfile, delimiter=',',
-                          quotechar='"', quoting=csv.QUOTE_MINIMAL, lineterminator='\n')
+                          quotechar='"', quoting=csv.QUOTE_MINIMAL)
       writer.writerow([util.date2string(start_date),
                        util.date2string(stop_date),
                        message])
